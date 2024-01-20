@@ -9,14 +9,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Build
+      - name: Verify Release Manager
         run: |
-          # Check if the user is the release manager
+          echo Current user triggering the WorkFlow is "${{ github.actor }}"
           if [[ "${{ github.actor }}" != "HaddarD" ]]; then
             echo "User '${{ github.actor }}' is not the release manager. Aborting workflow."
             exit 1
           fi
-
+          echo Realease manager Verified Proceeding with WorkFlow
+      - name: Build
+        run: |
           echo building and packing and app...
   DeploySimulation:
     runs-on: ubuntu-latest
