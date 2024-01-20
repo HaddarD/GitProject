@@ -11,6 +11,12 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build
         run: |
+          # Check if the user is the release manager
+          if [[ "${{ github.actor }}" != "HaddarD" ]]; then
+            echo "User '${{ github.actor }}' is not the release manager. Aborting workflow."
+            exit 1
+          fi
+
           echo building and packing and app...
   DeploySimulation:
     runs-on: ubuntu-latest
@@ -20,3 +26,5 @@ jobs:
       - name: Deploy
         run: |
           echo deploying into Test env
+
+
